@@ -1,9 +1,22 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import {Home} from './Home'
+import {Moreinfo} from './Moreinfo'
+
 
 export const EachProduct = ({ product }) => {
+const [value,setValue]=useState(null)
+
+  function handle(data){
+    setValue(data)
+  }
+  if(value != null){
+    return (
+      <Moreinfo props={value}/>
+    )
+  }
+  
+
     return (
 
         <Card style={{ width: '18rem' , margin:'8px'}}>
@@ -12,8 +25,8 @@ export const EachProduct = ({ product }) => {
                 <Card.Title>{product.title}</Card.Title>
                 <Card.Text>Price:- ₹ {product.price}</Card.Text>
                 <Card.Text>Category:- {product.category}</Card.Text>
-                <Card.Text>rating:-{product.rating}</Card.Text>
-                <Button variant="info">More Details</Button>
+                <Card.Text className="empty-stars">{product.rating}</Card.Text>
+                <Button variant="info" onClick={()=>handle(product)}>More Details</Button>
                 
             </Card.Body>
         </Card>
