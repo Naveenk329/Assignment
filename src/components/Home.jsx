@@ -7,14 +7,22 @@ import Accordion from 'react-bootstrap/Accordion';
 import product from './products.json'
 import { Product } from "./Product";
 import { EachProductFilter } from './EachProductFilter'
+import { Navbar } from "./Navbar"
 
 export const Home = () => {
+
+    const price = [];
+    //const rating = [];
+
+    product.products.forEach(ele => price.push(ele.price))
+    console.log(price)
     product.products = product.products.filter((value, index, self) =>
         index === self.findIndex((t) => (
             t.category === value.category
         ))
     );
     const [active, setActive] = useState('');
+    const [Sortprice, setSort] = useState([]);
     const [category, setCategory] = useState('')
     const [brand, setBrand] = useState('');
     const [title, setTitle] = useState({
@@ -28,6 +36,12 @@ export const Home = () => {
         //setstock(eachData.stock)
         filterfunction(eachData.category)
         filterfunction1(eachData.brand)
+    }
+    const sort = price.sort((a, b) => a-b)
+    const sortPrice = (data)=>{
+        
+        const sort1 = product.products.filter((ele)=> ele.price == data)
+        setSort(sort1)
     }
     const [filterProduct, setFilterProduct] = useState([])
     const filterfunction = (data) => {
@@ -59,8 +73,8 @@ export const Home = () => {
         product.products.map(ele => ele.title.includes(ele1) ? setstock(ele) : setstock(null))
     }
     if (title != null) {
-        <div className='my-product'>
-            <h1 className='text-center'>All Product</h1>
+        <div classNameName='my-product'>
+            <h1 classNameName='text-center'>All Product</h1>
             <Product props={product.products} />
         </div>
     }
@@ -69,9 +83,13 @@ export const Home = () => {
 
     return (
         <>
+
             <Container>
                 <Row>
+                    <Navbar />
+
                     <Col md={{ span: 3 }}>
+
                         <h1>Filter</h1>
                         <Accordion defaultActiveKey="0">
                             <Accordion.Item eventKey="0">
@@ -82,7 +100,7 @@ export const Home = () => {
                                             <Button variant="info"
                                                 key={index} id={ele.id}
                                                 onClick={() => handleChange(ele)}
-                                                className={ele.id === active ? active : "deactive"}>{ele.category}</Button>
+                                                classNameName={ele.id === active ? active : "deactive"}>{ele.category}</Button>
                                         </div>
 
                                     ))}
@@ -94,12 +112,12 @@ export const Home = () => {
                                 <Accordion.Body>
 
                                     {product.products.map((ele, ind) => (
-                                        <div class="form-check">
+                                        <div className="form-check">
                                             <input key={ind}
                                                 id={ele.id}
-                                                onClick={() => handleChange(ele)} className={ele.id === active ? active : "deactive"}
-                                                class="form-check-input" type="checkbox" value={ele.brand} />
-                                            <label class="form-check-label" for="defaultCheck1">
+                                                onClick={() => handleChange(ele)} classNameName={ele.id === active ? active : "deactive"}
+                                                className="form-check-input" type="checkbox" value={ele.brand} />
+                                            <label className="form-check-label" for="defaultCheck1">
                                                 {ele.brand}
                                             </label>
                                         </div>
@@ -112,14 +130,14 @@ export const Home = () => {
                             <Accordion.Item eventKey="2">
                                 <Accordion.Header>Title</Accordion.Header>
                                 <Accordion.Body>
-                                    <div class="input-group">
+                                    <div className="input-group">
                                         <input name='title'
                                             type="search"
-                                            class="form-control rounded"
+                                            className="form-control rounded"
                                             placeholder="Search"
                                             aria-label="Search" aria-describedby="search-addon"
                                             onChange={onChange} value={title.title} />
-                                        <button type="button" class="btn btn-outline-primary" onClick={() => filterTitle(title.title)}>search</button>
+                                        <button type="button" className="btn btn-outline-primary" onClick={() => filterTitle(title.title)}>search</button>
                                     </div>
 
                                 </Accordion.Body>
@@ -127,6 +145,16 @@ export const Home = () => {
                             <Accordion.Item eventKey="3">
                                 <Accordion.Header>Sort</Accordion.Header>
                                 <Accordion.Body>
+
+                                    <div>
+                                        {}
+                                        <Button variant="info">Price</Button>
+                                        <Button variant="info">Rating</Button>
+                                        <Button variant="info">discount Percentage</Button>
+                                        <Button variant="info">Asending</Button>
+                                    </div>
+
+
 
 
                                 </Accordion.Body>
@@ -136,13 +164,13 @@ export const Home = () => {
                                 <Accordion.Body>
 
                                     {product.products.map((ele, ind) => (
-                                        <div class="form-check">
+                                        <div className="form-check">
                                             <input key={ind}
                                                 id={ele.id}
                                                 onClick={() => handleChange(ele)}
-                                                className={ele.id === active ? active : "deactive"}
-                                                class="form-check-input" type="checkbox" value={ele.stock} />
-                                            <label class="form-check-label" for="defaultCheck1">
+                                                classNameName={ele.id === active ? active : "deactive"}
+                                                className="form-check-input" type="checkbox" value={ele.stock} />
+                                            <label className="form-check-label" for="defaultCheck1">
                                                 {ele.stock}
                                             </label>
                                         </div>
@@ -159,7 +187,7 @@ export const Home = () => {
                     </Col>
                     <Col rm={4}>
                         {filterProduct.length > 0 && (
-                            <div className='my-product'>
+                            <div classNameName='my-product'>
                                 <a href='#' onClick={returnToAll}>return to all product</a>
                                 {filterProduct.map(ele => (
                                     <EachProductFilter key={ele.id} product={ele}></EachProductFilter>
@@ -170,14 +198,14 @@ export const Home = () => {
                             </div>
                         )}
                         {filterProduct.length < 1 && (
-                            <div className='my-product'>
-                                <h1 className='text-center'>All Product</h1>
+                            <div classNameName='my-product'>
+                                <h1 classNameName='text-center'>All Product</h1>
                                 <Product props={product.products} />
                             </div>
 
                         )}
                         {filterProduct.length < 1 && (
-                            <div className='my-product please-wait'>Please wait....</div>
+                            <div classNameName='my-product please-wait'>Please wait....</div>
                         )}
                     </Col>
                 </Row>
