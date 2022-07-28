@@ -3,6 +3,8 @@ import './App.css';
 //import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Login } from "./components/Login";
 import { Home } from "./components/Home";
+import{Moreinfo} from './components/Moreinfo'
+import {EachCartProduct} from './components/EachCartProduct'
 import {
   BrowserRouter as Router,
   Routes,
@@ -14,8 +16,11 @@ function App() {
   return (
    <Router>
     <Routes>
-      <Route path='/' element={<Home/>}></Route>
+      <Route path='/' element={<Login/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
+      <Route path='/product'element={<Home/>}></Route>
+      <Route path ='/cart' element={<EachCartProduct/>}></Route>
+    
       
     </Routes>
    </Router>

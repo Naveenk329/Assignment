@@ -21,7 +21,7 @@ export const EachProductFilter = ({product}) => {
         <Card.Img variant="top" src={product.images[0]} />
         <Card.Body>
             <Card.Title>{product.title}</Card.Title>
-            <Card.Text>Price:-&nbsp; ₹ {product.price}</Card.Text>
+            <Card.Text>Price:-&nbsp; $ {product.price}</Card.Text>
             <Card.Text>Category:-&nbsp; {product.category}</Card.Text>
             <Card.Text className="empty-stars">&nbsp;{product.rating}</Card.Text>
             <Button variant="info"id={product.id} onClick={() => handle(product)}>More Details</Button>

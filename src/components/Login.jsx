@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import './login.css'
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+
+    var navigate = useNavigate();
     const [value, setValue] = useState({
         email: "",
         password: ""
@@ -22,9 +25,16 @@ export const Login = () => {
         const { name, value } = ele.target
         setValue((ele) => ({ ...ele, [name]: value }))
     }
+    console.log(err)
 
     const onSubmit = function (ele) {
         ele.preventDefault();
+        if(value.email === "" && value.password === ""){
+            setErr((ele) => ({
+                ...ele, email: "required email*",password: "required password*"
+            }))
+
+        }
         if (!/(^$|^.*@.*\..*$)/.test(value.email)) {
             setErr((ele) => ({
                 ...ele, email: "Invalid Email*"
@@ -35,6 +45,12 @@ export const Login = () => {
                 ...ele, password: "password length should be min 8 and [Aa@1]*"
             }))
         }
+        
+        if(!(value.email === "" && value.password === "")){
+            navigate("/product");
+        }
+        
+
         data();
 
     }

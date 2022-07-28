@@ -1,33 +1,50 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect} from 'react'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
-import product from './products.json'
+//import product from './products.json'
+import {loadAllProducts,isSelected} from '../Redux/reducers/productReducers'
+import { useSelector, useDispatch} from "react-redux";
 import { Product } from "./Product";
 import { EachProductFilter } from './EachProductFilter'
 import { Navbar } from "./Navbar"
+import axios from 'axios'
 
 export const Home = () => {
+    const dispatch = useDispatch()
+    var product = useSelector((state)=> state.allProducts);
 
-    const price = [];
-    //const rating = [];
 
-    product.products.forEach(ele => price.push(ele.price))
-    console.log(price)
-    product.products = product.products.filter((value, index, self) =>
+
+    
+    product = product.filter((value, index, self) =>
         index === self.findIndex((t) => (
             t.category === value.category
         ))
     );
+    const record = product
     const [active, setActive] = useState('');
-    const [Sortprice, setSort] = useState([]);
+    const [Sortprice1, setSort] = useState(record);
     const [category, setCategory] = useState('')
     const [brand, setBrand] = useState('');
     const [title, setTitle] = useState({
         title: ""
     })
+    var [loading, setLoading] = useState(true);
+    useEffect(() => {
+        async function loadData () {
+            await axios.get('https://dummyjson.com/products?limit=1000')
+            .then(response => {
+                dispatch(loadAllProducts(response.data.products));
+                setLoading(false);
+            });
+        }
+        loadData();
+    }, [dispatch]);
+
+    console.log(Sortprice1)
     const [instock, setstock] = useState('')
     const handleChange = (eachData) => {
         setActive(eachData.id)
@@ -37,23 +54,39 @@ export const Home = () => {
         filterfunction(eachData.category)
         filterfunction1(eachData.brand)
     }
-    const sort = price.sort((a, b) => a-b)
-    const sortPrice = (data)=>{
-        
-        const sort1 = product.products.filter((ele)=> ele.price == data)
+
+    function sort (){
+        const dataToSort = [...record]
+        const sort1 = dataToSort.sort((a,b)=>Number(a.price)-Number(b.price))
         setSort(sort1)
     }
+    function sortRating (){
+        const dataToSort = [...record]
+        const sort1 = dataToSort.sort((a,b)=>Number(a.rating)-Number(b.rating))
+        setSort(sort1)
+    }
+    function sortDiscount (){
+        const dataToSort = [...record]
+        const sort1 = dataToSort.sort((a,b)=>Number(a.discountPercentage)-Number(b.discountPercentage))
+        setSort(sort1)
+    }
+    function titleSearch(){
+    const search =  record.filter(ele => ele.title.startsWith(title.title))
+    setSort(search)
+
+    }
+   
     const [filterProduct, setFilterProduct] = useState([])
     const filterfunction = (data) => {
-        if (product.products.length > 0) {
-            const filter = product.products.filter((ele) => ele.category == data)
+        if (product.length > 0) {
+            const filter = product.filter((ele) => ele.category == data)
             setFilterProduct(filter);
         }
 
     }
     const filterfunction1 = (data) => {
-        if (product.products.length > 0) {
-            const filter = product.products.filter((ele) => ele.brand == data)
+        if (product.length > 0) {
+            const filter = product.filter((ele) => ele.brand == data)
             setFilterProduct(filter);
         }
 
@@ -69,13 +102,12 @@ export const Home = () => {
         const { name, value } = ele.target
         setTitle((ele) => ({ ...ele, [name]: value }))
     }
-    const filterTitle = (ele1) => {
-        product.products.map(ele => ele.title.includes(ele1) ? setstock(ele) : setstock(null))
-    }
+    //console.log(title)
+    
     if (title != null) {
         <div classNameName='my-product'>
             <h1 classNameName='text-center'>All Product</h1>
-            <Product props={product.products} />
+            <Product props={product} />
         </div>
     }
 
@@ -95,7 +127,7 @@ export const Home = () => {
                             <Accordion.Item eventKey="0">
                                 <Accordion.Header>Category</Accordion.Header>
                                 <Accordion.Body>
-                                    {product.products.map((ele, index) => (
+                                    {product.map((ele, index) => (
                                         <div>
                                             <Button variant="info"
                                                 key={index} id={ele.id}
@@ -111,7 +143,7 @@ export const Home = () => {
                                 <Accordion.Header>Brands</Accordion.Header>
                                 <Accordion.Body>
 
-                                    {product.products.map((ele, ind) => (
+                                    {product.map((ele, ind) => (
                                         <div className="form-check">
                                             <input key={ind}
                                                 id={ele.id}
@@ -137,7 +169,7 @@ export const Home = () => {
                                             placeholder="Search"
                                             aria-label="Search" aria-describedby="search-addon"
                                             onChange={onChange} value={title.title} />
-                                        <button type="button" className="btn btn-outline-primary" onClick={() => filterTitle(title.title)}>search</button>
+                                        <button type="button" className="btn btn-outline-primary" onClick={() => titleSearch()}>search</button>
                                     </div>
 
                                 </Accordion.Body>
@@ -147,10 +179,13 @@ export const Home = () => {
                                 <Accordion.Body>
 
                                     <div>
-                                        {}
-                                        <Button variant="info">Price</Button>
-                                        <Button variant="info">Rating</Button>
-                                        <Button variant="info">discount Percentage</Button>
+                                        
+                                        <Button variant="info" onClick={sort}>Price</Button>
+                                        
+                                        
+
+                                        <Button variant="info" onClick={sortRating}>Rating</Button>
+                                        <Button variant="info" onClick={sortDiscount}>discount Percentage</Button>
                                         <Button variant="info">Asending</Button>
                                     </div>
 
@@ -163,7 +198,7 @@ export const Home = () => {
                                 <Accordion.Header>In stock</Accordion.Header>
                                 <Accordion.Body>
 
-                                    {product.products.map((ele, ind) => (
+                                    {product.map((ele, ind) => (
                                         <div className="form-check">
                                             <input key={ind}
                                                 id={ele.id}
@@ -200,7 +235,7 @@ export const Home = () => {
                         {filterProduct.length < 1 && (
                             <div classNameName='my-product'>
                                 <h1 classNameName='text-center'>All Product</h1>
-                                <Product props={product.products} />
+                                <Product props={Sortprice1} />
                             </div>
 
                         )}
