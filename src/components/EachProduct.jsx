@@ -3,21 +3,28 @@ import {Link} from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import {Moreinfo} from './Moreinfo'
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { moreInfo } from "../Redux/reducers/productReducers";
+import { Product } from './Product';
+
 
 
 export const EachProduct = ({ product }) => {
 const [value,setValue]=useState(null)
-
+var navigate = useNavigate();
+var dispatch = useDispatch();
   function handle(data){
     setValue(data)
+    dispatch(moreInfo(data))
   }
-  
   if(value != null){
     return (
       <Moreinfo props={value}/>
     )
   }
   
+
 
     return (
 

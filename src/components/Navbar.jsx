@@ -23,7 +23,7 @@ export const Navbar = () => {
             <div><Link className='navlink' to='/product' >Home</Link></div>
         </div>
         <div className="rightside">
-            <div><Link className='navlink' to='/' >LogIn</Link></div>
+            <div><Link className='navlink' to='/'  >Logout</Link></div>
         </div>
         <div className="cart-menu-btn">
                 <Link  className='navlink'  to='/cart'>

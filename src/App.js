@@ -5,6 +5,9 @@ import { Login } from "./components/Login";
 import { Home } from "./components/Home";
 import{Moreinfo} from './components/Moreinfo'
 import {EachCartProduct} from './components/EachCartProduct'
+import { CheckOut } from './components/CheckOut';
+import {DeliveryItems} from  './components/DeliveryItems'
+import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,13 +16,17 @@ import {
 } from "react-router-dom";
 
 function App() {
+  var product = useSelector((state)=>state.product)
   return (
    <Router>
     <Routes>
       <Route path='/' element={<Login/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/product'element={<Home/>}></Route>
+      <Route path='moreinfo' element={<Moreinfo props={product} />}></Route>
       <Route path ='/cart' element={<EachCartProduct/>}></Route>
+      <Route path ='/Checkout' element={<CheckOut/>}></Route>
+      <Route path ='/items' element={<DeliveryItems/>}></Route>
     
       
     </Routes>
