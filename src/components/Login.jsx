@@ -74,7 +74,7 @@ export const Login = () => {
                                 {/*Email input*/}
                                 <div class="form-outline mb-4">
                                     <input name='email' type="email" id="form3Example3" class="form-control form-control-lg"
-                                        placeholder="Enter a valid email address" onChange={onChange} value={value.email} />
+                                        placeholder="Email Id" onChange={onChange} value={value.email} />
                                     <label class="form-label" for="form3Example3">Email address</label>
                                     {err.email && (<div>
                                         <p class="danger">{err.email}</p>
@@ -105,8 +105,6 @@ export const Login = () => {
                                 <div class="text-center text-lg-start mt-4 pt-2">
                                     <button type="button" class="btn btn-primary btn-lg button"
                                         onClick={onSubmit}>Login</button>
-                                    <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"
-                                        class="link-danger">Register</a></p>
                                 </div>
 
                             </form>

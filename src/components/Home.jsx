@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
-import { useNavigate } from "react-router-dom";
+
 //import product from './products.json'
 import {loadAllProducts,isSelected} from '../Redux/reducers/productReducers'
 import { useSelector, useDispatch} from "react-redux";
@@ -15,7 +15,7 @@ import axios from 'axios'
 
 export const Home = () => {
     const dispatch = useDispatch()
-    var navigate = useNavigate();
+    
     var product = useSelector((state)=> state.allProducts);
 
 
