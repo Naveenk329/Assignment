@@ -11,7 +11,7 @@ export const allProductsSlice = createSlice({
         product:{}
     },
     reducers: {
-        isSelected: (state, action) => {
+       disSelecte: (state, action) => {
             state.selectedCard = action.payload;
         },
         moreInfo:(state,action)=>{

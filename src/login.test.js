@@ -2,28 +2,33 @@ import { render, screen,fireEvent } from '@testing-library/react';
 import {Login} from './components/Login'
 
 
+const mockedUsedNavigate = jest.fn();
 
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedUsedNavigate,
+}));
 
 
 
 // 1
 
-// test("renders Login page", () => {
-//   render(<Login />);
-//     // screen.debug();
-//   const email = screen.getByPlaceholderText("Email Id");
-//   expect(email).toBeInTheDocument(); // jest
-// });
+test("renders Login page", () => {
+  render(<Login />);
+    // screen.debug();
+  const email = screen.getByPlaceholderText("Email Id");
+  expect(email).toBeInTheDocument(); // jest
+});
 
 
 //2
 
-// test("renders Login page", () => {
-//   render(<Login />);
-//     // screen.debug();
-//   const password = screen.getByPlaceholderText("Enter password");
-//   expect(password).toBeInTheDocument(); // jest
-// });
+test("renders Login page", () => {
+  render(<Login />);
+    // screen.debug();
+  const password = screen.getByPlaceholderText("Enter password");
+  expect(password).toBeInTheDocument(); // jest
+});
 
 // 2
 //=======================email======================
@@ -73,3 +78,19 @@ import {Login} from './components/Login'
 //     expect(pe.length).toBe(1);
 // })
 
+//Mocking navigate
+test("Mock navigate to product page", () => {
+  render(<Login />);
+
+  var email = screen.getByPlaceholderText("Email Id");
+  fireEvent.change(email,{target: {value: "ram@gmail.com"}});
+
+  var password = screen.getByPlaceholderText("Enter password");
+  fireEvent.change(password, {target: {value:"Ramsan@12"}});
+
+  var button = screen.getByRole("button");
+  fireEvent.click(button);
+  // screen.debug()
+
+  expect(mockedUsedNavigate).toHaveBeenCalledWith("/product")
+})
