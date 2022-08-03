@@ -83,7 +83,7 @@ test("Mock navigate to product page", () => {
   render(<Login />);
 
   var email = screen.getByPlaceholderText("Email Id");
-  fireEvent.change(email,{target: {value: "ram@gmail.com"}});
+  fireEvent.change(email,{target: {value: "tam@gmail.com"}});
 
   var password = screen.getByPlaceholderText("Enter password");
   fireEvent.change(password, {target: {value:"Ramsan@12"}});
@@ -92,5 +92,5 @@ test("Mock navigate to product page", () => {
   fireEvent.click(button);
   // screen.debug()
 
-  expect(mockedUsedNavigate).toHaveBeenCalledWith("/product")
+  expect(mockedUsedNavigate).toHaveBeenCalledWith('/product')
 })

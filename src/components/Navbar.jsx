@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 import {Icon} from 'react-icons-kit'
 import {shoppingCart} from 'react-icons-kit/feather/shoppingCart'
@@ -9,6 +10,7 @@ import img from '../img/img-icon.png'
 
 
 export const Navbar = () => {
+    
     
     const count = useSelector((state) => state.numberCart)
 
@@ -21,6 +23,7 @@ export const Navbar = () => {
         </div>
         <div className="rightside">
             <div><Link className='navlink' to='/product' >Home</Link></div>
+            <div><Link className='navlink' to='/Addproduct'>add Product</Link></div>
         </div>
         <div className="rightside">
             <div><Link className='navlink' to='/'  >Logout</Link></div>

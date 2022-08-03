@@ -75,7 +75,7 @@ export const Login = () => {
                                 <div class="form-outline mb-4">
                                     <input name='email' type="email" id="form3Example3" class="form-control form-control-lg"
                                         placeholder="Email Id" onChange={onChange} value={value.email} />
-                                    <label class="form-label" for="form3Example3">Email address</label>
+                                    <label class="form-label" for="form3Example3">Email</label>
                                     {err.email && (<div>
                                         <p class="danger">{err.email}</p>
                                     </div>)}

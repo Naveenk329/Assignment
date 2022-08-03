@@ -46,7 +46,7 @@ export const Home = () => {
         loadData();
     }, [dispatch]);
 
-    console.log(Sortprice1)
+    //console.log(Sortprice1)
     const [instock, setstock] = useState('')
     const handleChange = (eachData) => {
         setActive(eachData.id)
