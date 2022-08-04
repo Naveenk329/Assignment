@@ -28,13 +28,13 @@ export const Navbar = () => {
         <div className="rightside">
             <div><Link className='navlink' to='/'  >Logout</Link></div>
         </div>
-        <div className="cart-menu-btn">
+        <div className="cart-menu-btn" style={{marginRight:"100px"}}>
                 <Link  className='navlink'  to='/cart'>
 
-                <Icon icon={shoppingCart} size={20}></Icon>
+                <Icon icon={shoppingCart} size={20} ></Icon>
                 </Link> 
             
-            <span className='cart-indicator'>{count}</span>
+                <span className='cart-indicator' style={{color:"red"}}>{count}*</span>
         </div>
 
     </div>

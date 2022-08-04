@@ -3,6 +3,7 @@ import './product/product.css'
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from "react-redux";
 import {addToCart,incCartCount} from '../Redux/reducers/productReducers'
+import { Navbar } from "./Navbar"
 
    
 
@@ -13,25 +14,28 @@ export const Moreinfo = ({props}) => {
          dispatch(incCartCount()) 
     }
     return (
-        <div class="card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
-            <div class="inner">
-                <div class="main-img"><img src={props.images[0]} alt="Category" /></div>
-                <div class="thumblist"><img src={props.images[1]} alt="Category" /><img src={props.images[2]}alt="Category" /></div>
+        <>
+        <Navbar/>
+        <div className="card" style={{marginLeft:'100px', marginRight:"100px"}} ><a className="card-img-tiles"  href="#" data-abc="true">
+            <div className="inner container" style={{width:"50%"}} >
+                <div className="main-img"><img src={props.images[0]} alt="Category" /></div>
+                <div className="thumblist"><img src={props.thumbnail} alt="Category" /><img src={props.thumbnail}alt="Category" /></div>
             </div></a>
-            <div class="card-body text-center">
-                <h4 class="card-title">{props.title}</h4>
-                <p class="text-muted"> $&nbsp;&nbsp;{props.price}</p>
-                <p class="text-muted">{props.category}</p>
-                <p class="text-muted">{props.brand}</p>
-                <p class="text-muted">stock:-&nbsp;{props.stock}</p>
-                <p class="text-muted">Discount:-&nbsp;{props.discountPercentage}%</p>
-                <p class="text-muted">{props.description}</p>
+            <div className="card-body text-center container">
+                <h4 className="card-title">{props.title}</h4>
+                <p className="text-muted"> $&nbsp;&nbsp;{props.price}</p>
+                <p className="text-muted">{props.category}</p>
+                <p className="text-muted">{props.brand}</p>
+                <p className="text-muted">stock:-&nbsp;{props.stock}</p>
+                <p className="text-muted">Discount:-&nbsp;{props.discountPercentage}%</p>
+                <p className="text-muted">{props.description}</p>
                 <Button variant="info" style={{cursor:'pointer'}} onClick={()=>handleCart()}>Add to cart</Button>
 
                 
                 
             </div>
         </div>
+        </>
 
     )
 }

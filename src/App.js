@@ -24,7 +24,7 @@ function App() {
       <Route path='/' element={<Login/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/product' element={<Home/>}></Route>
-      <Route path='moreinfo' element={<Moreinfo props={product} />}></Route>
+      <Route path='/moreinfo' element={<Moreinfo props={product} />}></Route>
       <Route path ='/cart' element={<EachCartProduct/>}></Route>
       <Route path ='/Checkout' element={<CheckOut/>}></Route>
       <Route path ='/items' element={<DeliveryItems/>}></Route>

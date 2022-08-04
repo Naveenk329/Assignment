@@ -35,20 +35,22 @@ export const Login = () => {
             }))
 
         }
-        if (!/(^$|^.*@.*\..*$)/.test(value.email)) {
+        else if (!/(^$|^.*@.*\..*$)/.test(value.email)) {
             setErr((ele) => ({
                 ...ele, email: "Invalid Email*"
             }))
         }
-        if (!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(value.password)) {
+       
+        else if (!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(value.password)) {
             setErr((ele) => ({
                 ...ele, password: "password length should be min 8 and [Aa@1]*"
             }))
         }
         
-        if(!(value.email === "" && value.password === "")){
+        else if(!(err.email=="" && err.password=="") ){
             navigate("/product");
         }
+
         
 
         data();

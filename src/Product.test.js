@@ -15,90 +15,90 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedUsedNavigate,
 }));
 
-// //Mock axios
-// jest.mock("axios");
+//Mock axios
+jest.mock("axios");
 
-// //redux 
-// const render = (
-//     ui,
-//     {
-//     store = configureStore({
-//         reducer: reducers,
-//     }),
-//     ...renderOptions
-//     } = {}
-// ) => {
+//redux 
+const render = (
+    ui,
+    {
+    store = configureStore({
+        reducer: reducers,
+    }),
+    ...renderOptions
+    } = {}
+) => {
 
-// const Wrapper = ({ children }) => (
-//     <Provider store={store}>{children}</Provider>
-// );
-// return Renderopt(ui, { wrapper: Wrapper, ...renderOptions });
-// }
+const Wrapper = ({ children }) => (
+    <Provider store={store}>{children}</Provider>
+);
+return Renderopt(ui, { wrapper: Wrapper, ...renderOptions });
+}
 
-// test("renders page with redux", async () => {
-// const products = [ {
-//   "id": 3,
-//   "title": "Samsung Universe 9",
-//   "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
-//   "price": 1249,
-//   "discountPercentage": 15.46,
-//   "rating": 4.09,
-//   "stock": 36,
-//   "brand": "Samsung",
-//   "category": "smartphones",
-//   "thumbnail": "https://dummyjson.com/image/i/products/3/thumbnail.jpg",
-//   "images": [
-//       "https://dummyjson.com/image/i/products/3/1.jpg"
-//   ]
-// },
-// {
-//   "id": 4,
-//   "title": "OPPOF19",
-//   "description": "OPPO F19 is officially announced on April 2021.",
-//   "price": 280,
-//   "discountPercentage": 17.91,
-//   "rating": 4.3,
-//   "stock": 123,
-//   "brand": "OPPO",
-//   "category": "smartphones",
-//   "thumbnail": "https://dummyjson.com/image/i/products/4/thumbnail.jpg",
-//   "images": [
-//       "https://dummyjson.com/image/i/products/4/1.jpg",
-//       "https://dummyjson.com/image/i/products/4/2.jpg",
-//       "https://dummyjson.com/image/i/products/4/3.jpg",
-//       "https://dummyjson.com/image/i/products/4/4.jpg",
-//       "https://dummyjson.com/image/i/products/4/thumbnail.jpg"
-//   ]
-// }]
-
-
+test("renders page with redux", async () => {
+const products = [ {
+  "id": 3,
+  "title": "Samsung Universe 9",
+  "description": "Samsung's new variant which goes beyond Galaxy to the Universe",
+  "price": 1249,
+  "discountPercentage": 15.46,
+  "rating": 4.09,
+  "stock": 36,
+  "brand": "Samsung",
+  "category": "smartphones",
+  "thumbnail": "https://dummyjson.com/image/i/products/3/thumbnail.jpg",
+  "images": [
+      "https://dummyjson.com/image/i/products/3/1.jpg"
+  ]
+},
+{
+  "id": 4,
+  "title": "OPPOF19",
+  "description": "OPPO F19 is officially announced on April 2021.",
+  "price": 280,
+  "discountPercentage": 17.91,
+  "rating": 4.3,
+  "stock": 123,
+  "brand": "OPPO",
+  "category": "smartphones",
+  "thumbnail": "https://dummyjson.com/image/i/products/4/thumbnail.jpg",
+  "images": [
+      "https://dummyjson.com/image/i/products/4/1.jpg",
+      "https://dummyjson.com/image/i/products/4/2.jpg",
+      "https://dummyjson.com/image/i/products/4/3.jpg",
+      "https://dummyjson.com/image/i/products/4/4.jpg",
+      "https://dummyjson.com/image/i/products/4/thumbnail.jpg"
+  ]
+}]
 
 
 
-//     // Mock axios implementation
-//     axios.get.mockImplementationOnce(() =>
-//       Promise.resolve({ data: { products } })
-//     );
+
+
+    // Mock axios implementation
+    axios.get.mockImplementationOnce(() =>
+      Promise.resolve({ data: { products } })
+    );
   
-//     render(<Home />);
+    render(<Home />);
   
-//     const makeCustomWait = () => {
-//       return waitForElementToBeRemoved(() => screen.queryByAltText("loading"));
-//     };
+    const makeCustomWait = () => {
+      return waitForElementToBeRemoved(() => screen.queryByAltText("loading"));
+    };
   
-//     await makeCustomWait();
+    await makeCustomWait();
   
-//     screen.debug();
+    screen.debug();
   
-//     const item1 = screen.getByText("OPPOF19");
-//     expect(item1).toBeInTheDocument();
+    const item1 = screen.getByText("OPPOF19");
+    expect(item1).toBeInTheDocument();
   
-//     const item2 = screen.getByText("");
-//     expect(item2).toBeInTheDocument();
+    const item2 = screen.getByText("");
+    expect(item2).toBeInTheDocument();
   
-//     const link = screen.getAllByText("More Details");
-//     expect(link.length).toBe(2);
-//   });
+    const link = screen.getAllByText("More Details");
+    expect(link.length).toBe(2);
+  });
 
 
 

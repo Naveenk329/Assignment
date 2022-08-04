@@ -113,6 +113,16 @@ export const Home = () => {
         </div>
     }
 
+    if(loading){
+        return (
+            <>
+            <Container>
+                <img src="https://media.giphy.com/media/AAO7CYEKrIGfGphpFO/giphy.gif" alt="gif" />
+            </Container>
+            </>
+        )
+    }
+
 
 
     return (
