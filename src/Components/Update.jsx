@@ -4,8 +4,8 @@ import '../App.css';
 //import { NavLink,useNavigate} from 'react-router-dom';
 //import axios from 'axios'
 
-export const Createblog = () => {
-    //const history = useNavigate();
+export const Update = () => {
+   
     const [text, setText] = useState({
         title: "",
         imageUrl: "",
@@ -19,11 +19,7 @@ export const Createblog = () => {
         description: ""
     })
 
-    const isValid = function (value) {
-        if (typeof value == 'undefined' || value == null) return false
-        if (typeof value == 'string' && value.trim.length == 0) return false
-        return true
-    }
+    
     const onText = (ele) => {
         //console.log("submitted")
         const { value, name } = ele.target
@@ -34,7 +30,7 @@ export const Createblog = () => {
     const onSubmit = async function () {
 
         const { title, imageUrl, description } = text
-        const res = await fetch('/create', {
+        const res = await fetch('/updateBlog', {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
@@ -95,7 +91,7 @@ export const Createblog = () => {
                 </div>)}
             </div>
             <div className="card-footer">
-                <button className='btn btn-primary' onClick={onSubmit}>Create Blog</button>
+                <button className='btn btn-primary' onClick={onSubmit}>Update</button>
             </div>
         </div>
     )

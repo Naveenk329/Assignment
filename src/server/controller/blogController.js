@@ -9,7 +9,7 @@ const isValid = function(value){
 const creatBlog = async function(req,res){
     try{
         const {title,imageUrl,description}= req.body
-        console.log(req.body)
+        //console.log(req.body)
         if(!isValid(title)) return res.status(400).send({status:false,msg:"required title"})
         if(!(title.length>2 && title.length<12))return res.status(400).send({status:false,msg:"length should be 3 to 11"})
         if(!isValid(imageUrl)) return res.status(400).send({status:false,msg:"required imageUrl"})
