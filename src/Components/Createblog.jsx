@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom'
 import '../App.css';
 //import { useHistory } from 'react-router-dom';
 //import { NavLink,useNavigate} from 'react-router-dom';
 //import axios from 'axios'
 
 export const Createblog = () => {
+    const dispatch = useDispatch()
+    const update = useSelector((state) => state.update)
+    console.log(update._id)
     //const history = useNavigate();
     const [text, setText] = useState({
         title: "",
@@ -31,39 +36,74 @@ export const Createblog = () => {
 
     }
     console.log(text)
+
     const onSubmit = async function () {
 
-        const { title, imageUrl, description } = text
-        const res = await fetch('/create', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ title, imageUrl, description })
-        });
-        const res1 = await res.json()
-        if (text.title == "") {
-            setErr((ele) => ({ ...ele, title: "required title*" }))
+        if (update != null) {
+            const { title, imageUrl, description } = text
+            const res = await fetch(`/updateBlog/${update._id}`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title, imageUrl, description })
+            });
+            const res1 = await res.json()
+            if (text.title == "") {
+                setErr((ele) => ({ ...ele, title: "required title*" }))
+            }
+            else if (text.imageUrl == "") {
+                setErr((ele) => ({ ...ele, imageUrl: "required imageUrl*" }))
+            }
+            else if (text.description == "") {
+                setErr((ele) => ({ ...ele, description: "required description*" }))
+            }
+
+            else if (res1.status == 400) {
+                window.alert("Invalid request")
+                console.log("Invalid request")
+            }
+            else {
+                window.alert("Successfully updated")
+                console.log("Successfully updated")
+            }
         }
-        else if (text.imageUrl == "") {
-            setErr((ele) => ({ ...ele, imageUrl: "required imageUrl*" }))
-        }
-        else if (text.description == "") {
-            setErr((ele) => ({ ...ele, description: "required description*" }))
+        else{
+            const { title, imageUrl, description } = text
+            const res = await fetch('/create', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ title, imageUrl, description })
+            });
+            const res1 = await res.json()
+            if (text.title == "") {
+                setErr((ele) => ({ ...ele, title: "required title*" }))
+            }
+            else if (text.imageUrl == "") {
+                setErr((ele) => ({ ...ele, imageUrl: "required imageUrl*" }))
+            }
+            else if (text.description == "") {
+                setErr((ele) => ({ ...ele, description: "required description*" }))
+            }
+
+            else if (res1.status == 400) {
+                window.alert("Invalid request")
+                console.log("Invalid request")
+            }
+            else {
+                window.alert("Successfully created")
+                console.log("Successfully created")
+            }
+            
         }
 
-        else if (res1.status == 400) {
-            window.alert("Invalid request")
-            console.log("Invalid request")
-        }
-        else {
-            window.alert("Successfully created")
-            console.log("Successfully created")
-        }
-        // history("/create");
 
 
     }
+
+
 
 
 
@@ -79,23 +119,23 @@ export const Createblog = () => {
                 <input type="text" name='title' id="form12" class="form-control" value={text.title} onChange={onText} />
                 <label class="form-label" for="form12">Title</label>
                 {err.title && (<div>
-                    <p style={{color:'red'}}>{err.title}</p>
+                    <p style={{ color: 'red' }}>{err.title}</p>
                 </div>)}
 
                 <input type="text" name='imageUrl' id="form12" class="form-control" value={text.imageUrl} onChange={onText} />
                 <label class="form-label" for="form12">ImageUrl</label>
                 {err.imageUrl && (<div>
-                    <p style={{color:'red'}}>{err.imageUrl}</p>
+                    <p style={{ color: 'red' }}>{err.imageUrl}</p>
                 </div>)}
-               
+
                 <textarea class="form-control" name='description' id="textAreaExample1" rows="4" value={text.description} onChange={onText}></textarea>
                 <label class="form-label" for="textAreaExample">Description</label>
                 {err.description && (<div>
-                    <p style={{color:'red'}}>{err.description}</p>
+                    <p style={{ color: 'red' }}>{err.description}</p>
                 </div>)}
             </div>
             <div className="card-footer">
-                <button className='btn btn-primary' onClick={onSubmit}>Create Blog</button>
+                <button className='btn btn-primary' onClick={onSubmit}>Submit</button>
             </div>
         </div>
     )

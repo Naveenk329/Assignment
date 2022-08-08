@@ -3,7 +3,6 @@ import './App.css';
 import { BlogHome } from './Components/BlogHome'
 import { Createblog } from './Components/Createblog'
 import { ViewDetail } from "./Components/ViewDetail";
-import {Update} from './Components/Update'
 import { useSelector} from "react-redux";
 import {
   BrowserRouter as Router,
@@ -21,7 +20,7 @@ function App() {
         <Route path='/' element={<BlogHome />}></Route>
         <Route path='/createBlog' element={<Createblog />}></Route>
         <Route path='/view' element={< ViewDetail blog={more}/>}></Route>
-        <Route path='/update' element={< Update />}></Route>
+       
       </Routes>
     </Router>
   );
