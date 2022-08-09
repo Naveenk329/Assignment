@@ -5,8 +5,8 @@ const {creatBlog,getBlog,updateBlog,deleteBlog} = require('../controller/blogCon
 
 router.post('/create',creatBlog)
 router.get('/getBlog',getBlog)
-router.post('/updateBlog/:id',updateBlog)
-router.delete('/deleteblog/:id',deleteBlog)
+router.post('/updateBlog',updateBlog)
+router.delete('/deleteblog',deleteBlog)
 
 
 

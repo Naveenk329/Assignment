@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom'
 import '../App.css';
+import axios from 'axios'
 //import { useHistory } from 'react-router-dom';
 //import { NavLink,useNavigate} from 'react-router-dom';
 //import axios from 'axios'
@@ -39,16 +40,29 @@ export const Createblog = () => {
 
     const onSubmit = async function () {
 
-        if (update != null) {
+        if (update._id != undefined) {
             const { title, imageUrl, description } = text
-            const res = await fetch(`/updateBlog/${update._id}`, {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ title, imageUrl, description })
-            });
-            const res1 = await res.json()
+            // const res = await fetch(`/updateBlog?userId=${update._id}`, {
+            //     method: 'POST',
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify({ title, imageUrl, description })
+            // });
+            await axios.post(`/updateBlog?userId=${update._id}`, {
+                title: title,
+                imageUrl: imageUrl,
+                description:description
+              })
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+
+           
+              
             if (text.title == "") {
                 setErr((ele) => ({ ...ele, title: "required title*" }))
             }
@@ -57,11 +71,6 @@ export const Createblog = () => {
             }
             else if (text.description == "") {
                 setErr((ele) => ({ ...ele, description: "required description*" }))
-            }
-
-            else if (res1.status == 400) {
-                window.alert("Invalid request")
-                console.log("Invalid request")
             }
             else {
                 window.alert("Successfully updated")

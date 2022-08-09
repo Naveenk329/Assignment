@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { update } from '../reducer';
+import axios from 'axios';
 
 
 export const ViewDetail = (blog) => {
@@ -20,14 +21,21 @@ export const ViewDetail = (blog) => {
     }
     console.log(blog)
     const dele=async function() {
-        const res = await fetch(`/deleteblog/${blog.blog._id}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json"
-            },
-        });
+        // const res = await fetch(`/deleteblog?userId=${blog.blog._id}`, {
+        //     method: 'DELETE',
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        // });
+        axios.delete(`/deleteblog?userId=${blog.blog._id}`)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         navigate('/')
-        const res1 = await res.json()
+        
     }
 
 
