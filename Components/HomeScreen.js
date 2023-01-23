@@ -4,13 +4,12 @@ import { Ionicons, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icon
 import Colors from '../Constants/Colors'
 
 
-const Project = [
-    { title: "Bank- Design Phase", color: Colors.green },
-    { title: "Mutual Fund - Analysis Phase", color: Colors.blue },
-    { title: "Food App - Testing Phase", color: Colors.purple }
+var Project12 
 
-]
-const ListButton = ({ navigation, title, color, onDelete }) => {
+const ListButton = ({ navigation, title, color,onDelete,ind }) => {
+    
+   
+   
     return (
         <TouchableOpacity onPress={() => { navigation.navigate("ProjectList", { title, color }) }} style={[styles.itemContainer, { backgroundColor: color }]}>
             <View>
@@ -21,7 +20,7 @@ const ListButton = ({ navigation, title, color, onDelete }) => {
                 <TouchableOpacity onPress={() => { }} >
                     <Ionicons name='options' size={24} color='green' />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { }} >
+                <TouchableOpacity onPress={()=>onDelete(ind)} >
                     <Ionicons name="trash" size={24} color='red' />
                 </TouchableOpacity>
 
@@ -33,37 +32,32 @@ const ListButton = ({ navigation, title, color, onDelete }) => {
 
 }
 // addProject components
+const add1 = [{ title: "Bank- Design Phase", color: Colors.green }]
 const RenderAddListIcons = (addProject) => {
-    <TouchableOpacity onPress={() => { addProject({ title: 'Title', color: Colors.olive }) }}>
+     
+    return(
+        <TouchableOpacity onPress={()=>addProject(add1) }>
         <Text style={styles.icon}>+</Text>
     </TouchableOpacity>
+    )
 
 }
-const HomeScreen = ({ navigation }) => {
-    const [project1, setProject] = useState(Project)
-    const addProject = (Project) => {
-         project1.push(...Project)
-        setProject([...project1])
+const HomeScreen = ({ navigation,Project,removeItems }) => {
 
-    }
-    const removeItem = (index) => {
-        project1.splice(index, 1)
-
-    }
-    const add1 = [{ title: "Bank- Design Phase", color: Colors.green }]
+  
+   
+   
     return (
         <View style={styles.container}>
             <Text>Router App</Text>
-            <FlatList data={project1} renderItem={({ item: { title, color }, index }) => {
+            <FlatList data={Project} renderItem={({ item: { title, color }, index }) => {
                 return (
-                    <ListButton title={title} color={color} navigation={navigation} />
+                    <ListButton navigation={navigation} title={title} color={color}onDelete={removeItems} ind={index} />
 
                 )
             }} />
 
-            <TouchableOpacity onPress={() => { addProject(add1) }}>
-                <Text>ttttttttt</Text>
-            </TouchableOpacity>
+
 
 
 
