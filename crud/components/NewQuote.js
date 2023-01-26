@@ -7,9 +7,9 @@ import {
     TextInput,
     TouchableHighlight,
     View,
-    AsyncStorage
+    
 } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {Header} from 'react-navigation-stack';
 

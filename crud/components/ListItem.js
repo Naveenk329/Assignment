@@ -1,15 +1,18 @@
-import React, {useRef} from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import React, { useRef } from 'react';
+import { View, Text, StyleSheet,Animated } from 'react-native';
 
-import {RectButton} from 'react-native-gesture-handler';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { RectButton, Swipeable } from 'react-native-gesture-handler';
+//import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 let colours = ["#ff8e42", "#4F6384"];
 
-export default function ListItem ({item, index, navigation, onDelete, onEdit}){
+export default function ListItem({ item, index, navigation, onDelete, onEdit }) {
     const inputEl = useRef(null);
 
-    const RightActions = ({ progress, dragX, onPress, item}) => {
+
+    console.log(item)
+
+    const RightActions = ({ progress, dragX, onPress, item, onEdit1,onDelete1 }) => {
         const scale = dragX.interpolate({
             inputRange: [-100, 0],
             outputRange: [1, 0],
@@ -17,46 +20,58 @@ export default function ListItem ({item, index, navigation, onDelete, onEdit}){
         });
         return (
             <View style={styles.buttons}>
-                <RectButton onPress={() =>  {
+                <RectButton onPress={() => {
                     inputEl.current.close();
-                    onEdit(item);
+                    onEdit1(item);
                 }}>
                     <View style={[styles.rightAction, styles.editAction]}>
+
                         <Animated.Text style={[styles.actionText, { transform: [{ scale }] }]}>
                             Edit
                         </Animated.Text>
+                        {/**edit    <Animated.Text  style={[styles.actionText, { transform: [{ scale }] }]}>
+                            Edit
+                        </Animated.Text>*/}
                     </View>
                 </RectButton>
                 <RectButton onPress={() => {
                     inputEl.current.close();
-                    onDelete(item.id)
+                    onDelete1(item.id)
                 }}>
                     <View style={[styles.rightAction, styles.deleteAction]}>
                         <Animated.Text style={[styles.actionText, { transform: [{ scale }] }]}>
                             Delete
                         </Animated.Text>
+
+
+                        {/**delete     <Animated.Text style={[styles.actionText, { transform: [{ scale }] }]}>
+                            Delete
+                        </Animated.Text> */}
                     </View>
                 </RectButton>
             </View>
         );
     };
+    renderRightAction = (progress, dragX) =>{
+        return (
+            <RightActions progress={progress} dragX={dragX} item={item} onEdit1={onEdit} onDelete1={onDelete}/>  
+        )
 
+    }
     //Returns a colour based on the index
     function random() {
         if (index % 2 === 0) { //check if its an even number
             return colours[0];
-        }else{
+        } else {
             return colours[1];
         }
     }
 
     return (
-        <Swipeable  ref={inputEl}
-            renderRightActions={(progress, dragX) => (
-                <RightActions progress={progress} dragX={dragX} item={item}/>
-            )}>
+        <Swipeable ref={inputEl}
+            renderRightActions={renderRightAction}>
             <View style={styles.row}>
-                <View style={[styles.container, {backgroundColor: random()}]}>
+                <View style={[styles.container, { backgroundColor: random() }]}>
                     <Text style={styles.quote}>
                         {item.text}
                     </Text>
@@ -73,21 +88,21 @@ export default function ListItem ({item, index, navigation, onDelete, onEdit}){
 
 
 const styles = StyleSheet.create({
-    row:{
+    row: {
         borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor:"#ccc",
+        borderBottomColor: "#ccc",
         backgroundColor: '#FFF',
         padding: 10
     },
 
-    container:{
+    container: {
         padding: 10
     },
 
     author: {
         marginTop: 25,
         marginBottom: 10,
-        fontFamily: 'HelveticaNeue-Medium',
+        fontFamily: 'sans-serif',
         fontSize: 15,
         color: '#FFF',
         textAlign: "right"
@@ -95,13 +110,13 @@ const styles = StyleSheet.create({
 
     quote: {
         marginTop: 5,
-        fontFamily: 'HelveticaNeue-Medium',
+        fontFamily: 'sans-serif',
         fontSize: 17,
         lineHeight: 21,
         color: '#FFF',
     },
 
-    buttons:{
+    buttons: {
         width: 190,
         flexDirection: 'row'
     },

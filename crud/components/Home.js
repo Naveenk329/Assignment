@@ -7,9 +7,12 @@ import {
     Text,
     ActivityIndicator,
     TouchableHighlight,
-    AsyncStorage
+    
 } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useDispatch, useSelector } from 'react-redux';
+import {quotes} from '../sample.json'
 
 import axios from 'axios';
 
@@ -28,7 +31,7 @@ export default function Home(props) {
     //Access Redux Store State
     const dataReducer = useSelector((state) => state.dataReducer);
     const { quotes } = dataReducer;
-
+   
     //==================================================================================================
 
     //2 - MAIN CODE BEGINS HERE
@@ -61,6 +64,7 @@ export default function Home(props) {
 
     //4 - RENDER FLATLIST ITEM
     const renderItem = ({item, index}) => {
+        
         return (
             <ListItem item={item} index={index} navigation={navigation} onDelete={onDelete} onEdit={onEdit}/>
         )
@@ -69,15 +73,16 @@ export default function Home(props) {
     //==================================================================================================
 
     //5 - EDIT QUOTE
-    const onEdit = (item) => {
+    const onEdit = ({item}) => {
+
         navigation.navigate('NewQuote', {quote: item, title:"Edit Quote"})
     };
 
     //==================================================================================================
 
     //6 - DELETE QUOTE
-    const onDelete = (id) => {
-
+    const onDelete = ({id}) => {
+         console.log(id)
         //OPTION 1 - UPDATE LOCAL STORAGE DATA
         AsyncStorage.getItem('quotes', (err, quotes) => {
             if (err) alert(err.message);
@@ -109,7 +114,7 @@ export default function Home(props) {
     if (isFetching) {
         return (
             <View style={styles.activityIndicatorContainer}>
-                <ActivityIndicator animating={true}/>
+                <ActivityIndicator size="large" color="#00ff00"/>
             </View>
         );
     } else{
